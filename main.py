@@ -62,7 +62,7 @@ async def chat(request: ChatRequest):
             {"role": "user", "content": user_message}
         ]
     )
-    return {"response": response.choices[0].message.content}
+    return {"response": response.choices[0].message.content} # here we fix
     # return {"response": response.choices[0].message["content"]}
 
 
