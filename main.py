@@ -54,13 +54,15 @@ SYSTEM_PROMPT= "You are a professional AI English Language Tutor. Answer concise
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
+    user_message = request.message
     response = client.chat.complete(
-        model="mistral-7b",
+        model="mistral-small-2501",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},  # System prompt
-            {"role": "user", "content": request.user_input}
+            {"role": "user", "content": user_message}
         ]
     )
-    return {"response": response.choices[0].message["content"]}
+    return {"response": response.choices[0].message.content}
+    # return {"response": response.choices[0].message["content"]}
 
 
