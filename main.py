@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from mistralai.client import MistralClient
+from mistralai import Mistral
 import openai
 from openai import OpenAI
 import os
@@ -26,7 +26,7 @@ load_dotenv()
 
 # MISTRAL API KEY
 API_KEY = os.getenv("OPENAI_API_KEY")
-client = MistralClient(api_key=API_KEY)
+client = Mistral(api_key=API_KEY)
 
 
 # Request model
@@ -54,7 +54,7 @@ SYSTEM_PROMPT= "You are a professional AI English Language Tutor. Answer concise
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    response = client.chat(
+    response = client.chat.complete(
         model="mistral-7b",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},  # System prompt
